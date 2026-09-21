@@ -25,8 +25,8 @@ for document in documents:
          "chunk_id": id
       })
       id+=1
-
-print(all_chunks)
+if __name__ == "__main__":
+ print(all_chunks)
 
 #character based chunking
 """def chunk_text(documents, chunk_size:int):

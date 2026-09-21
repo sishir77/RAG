@@ -1,23 +1,36 @@
 from chunking import all_chunks
-from sentence_transformers import sentence_transformer
+from sentence_transformers import SentenceTransformer
 
 
-model = sentence_transformer("all-MiniLM-L6-v2")
+model = SentenceTransformer("all-MiniLM-L6-v2")
 
-Emdeddings=[]
-def emdeddings():
+embedded_chunks=[]
+def embeddings():
     for chunk in all_chunks:
-        "filename"= chunk['filename']
-        "text"= chunk["chunk"]
-        "embed_id"= chunk["chunk_id"]
+        filename= chunk['filename']
+        text= chunk["chunk"]
+        embed_id= chunk["chunk_id"]
 
-        emdeddings = model.encode("text")
+        embedding = model.encode(text)
 
-        for embed in emdeddings:
-            Emdeddings.append(embed)
+        embedded_chunks.append({
+        "filename": filename,
+        "chunk": text,
+        "chunk_id": embed_id,
+        "embedding": embedding
+        })
+
+embeddings()  
+        
+
+print("Total embedded chunks:", len(embedded_chunks))
+
+print("First embedded chunk:")
+print(embedded_chunks[0])
+
+print("Embedding length:")
+print(len(embedded_chunks[0]["embedding"]))
 
 
-emdeddings()
 
-
-
+  
