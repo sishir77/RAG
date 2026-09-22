@@ -20,17 +20,19 @@ def embeddings():
         "embedding": embedding
         })
 
-embeddings()  
+embeddings()
         
 
-print("Total embedded chunks:", len(embedded_chunks))
 
-print("First embedded chunk:")
-print(embedded_chunks[0])
+if __name__=="__main__":
+    print("Total embedded chunks:", len(embedded_chunks))
 
-print("Embedding length:")
-print(len(embedded_chunks[0]["embedding"]))
+    print("First embedded chunk:")
+    print(embedded_chunks[0])
 
+    print("Embedding length:")
+    print(len(embedded_chunks[0]["embedding"]))
+    
 
 
   
