@@ -1,6 +1,8 @@
 
 from fastapi import FastAPI
 from pydantic import BaseModel
+from retrieval import similarity_search
+
 
 app= FastAPI()
 
@@ -12,10 +14,11 @@ class questionRequest(BaseModel):
     question:str
 
 
-
-@app.get("/ask")
+@app.post("/ask")
 def ask_question(request:questionRequest):
-    return {"question_recieved": request.question}
+    result = similarity_search(request.question)
+    return {"question_recieved": request.question,
+            "result":result }
 
 
 
