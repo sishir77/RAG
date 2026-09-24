@@ -2,6 +2,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 from retrieval import similarity_search
+from llm import generate_answer
 
 
 app= FastAPI()
@@ -16,9 +17,18 @@ class questionRequest(BaseModel):
 
 @app.post("/ask")
 def ask_question(request:questionRequest):
-    result = similarity_search(request.question)
-    return {"question_recieved": request.question,
-            "result":result }
+    results = similarity_search(request.question)
+
+    context = "/n/n".join(
+        result['document'] for result in results
+    )
+
+    answer = generate_answer(request.question, context)
+
+    return{
+        "question": request.question,
+        "answer": answer
+    }
 
 
 
